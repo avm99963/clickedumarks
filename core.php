@@ -2,6 +2,7 @@
 /*
  * ClickEdu Marks
  * The ClickEdu Marks core file, adapted form Douglasbot
+ * @Author: Adrià Vilanova Martínez (@Avm99963)
  *
  */
 
