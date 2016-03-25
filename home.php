@@ -25,6 +25,7 @@ $morenav = 'ClickEdu Marks';
 			<li><a href="materias.php">Ver las notas de las diferentes materias</a></li>
 			<li><a href="retrasos.php">Ver asistencia<?php if (iswhitelisted()) { ?> y pasar lista<?php } ?></a></li>
 			<?php if (admincaixapropostes()) { ?><li><a href="caixapropostes.php">Ir a la caja de propuestas</a></li><?php } ?>
+			<?php if (iswhitelisted("switch")) { ?><li><a href="switchuser.php">Cambiar usuario</a></li><?php } ?>
 		</ul>
 	</body>
 </html>

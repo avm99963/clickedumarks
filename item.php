@@ -6,7 +6,7 @@ if (!isloggedin()) {
 	exit();
 }
 
-if (!isset($_GET["id"]) && !isset($_GET["id_cgap"])) {
+if (!isset($_GET["item_id"]) || !isset($_GET["id_cgap"]) || !isset($_GET["agrupacio"])) {
 	header("Location: materias.php");
 	exit();
 }

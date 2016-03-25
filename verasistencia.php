@@ -36,6 +36,10 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > <a href="retrasos.php">Ausen
 		$sessioid = $year."/".$month."/".$day."_".$hours.$minutes.$seconds;
 		$json = ws_query("/teacher/assistencia_sessio", "id_cgap=".urlencode($id_cgap)."&id_sessio=".urlencode($sessioid)."&data_sessio=".urlencode($year."/".$month."/".$day)."&hora_sessio=".urlencode($hours.$minutes.$seconds));
 
+		if (isset($json["error"])) {
+			die("Error ".$json["error"].": ".$json["msg"]);
+		}
+
 		if ($json["sessio"]["llista"]["revisada"] === false) {
 			?>
 			<p>Todavía no se ha pasado lista.</p>
