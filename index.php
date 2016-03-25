@@ -34,6 +34,7 @@
 		<form action="login.php" method="POST">
 			<p><label for="username">Usuario:</label> <input type="text" id="username" name="username" required></p>
 			<p><label for="password">Contraseña:</label> <input type="password" id="password" name="password" required></p>
+			<p><input type="checkbox" name="switchuser" id="switchuser" value="yes"><label for="switchuser">Iniciar sesión como otro usuario</label></p>
 			<p><input type="submit" value="Iniciar sesión"></p>
 		</form>
 	</body>

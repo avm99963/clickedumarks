@@ -19,9 +19,6 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > <a href="retrasos.php">Ausen
 	<body>
 		<?php include("header.php"); ?>
 		<h1>Asistencia sesión</h1>
-		<?php
-		$json = ws_query("/student/init_parametres");
-		?>
 		<p>Introduce los datos de la sesión:</p>
 		<form action="verasistencia.php" method="GET">
 			<p><label for="id_cgap">Materia:</label> <select id="id_cgap" name="id_cgap">
