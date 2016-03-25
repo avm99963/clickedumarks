@@ -22,14 +22,48 @@ function ws_query($query, $fields="", $method="GET") {
 	return $json;
 }
 
-function ws_curl($query, $fields, $method) {
+function curl($relativeurl, $fields, $method="GET", $useragent="") {
 	global $conf;
 
 	$ch = curl_init();
 
+	if (strtolower($method) == "post") {
+		curl_setopt($ch, CURLOPT_URL, $conf["apiurl"].$relativeurl);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
+	} else {
+		curl_setopt($ch, CURLOPT_URL, $conf["apiurl"].$relativeurl."?".$fields);
+	}
+
+	if (isset($_SESSON["cookie"])) {
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Cookie: ".$_SESSION["cookie"]));
+	}
+
+	if (!empty($useragent)) {
+		curl_setopt($ch, CURLOPT_HTTPHEADER, array("User-Agent: ".$useragent));
+	}
+
+	curl_setopt($ch, CURLOPT_TIMEOUT, 10); //timeout in seconds
+	curl_setopt($ch, CURLOPT_HEADERFUNCTION, "curlResponseHeaderCallback");
+
+	// receive server response ...
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+	$server_output = curl_exec($ch);
+
+	curl_close($ch);
+
+	return $server_output;
+}
+
+function ws_curl($query, $fields, $method) {
+	global $conf;
+
 	$fields = "cons_key=".$conf["cons_key"]."&cons_secret=".$conf["cons_secret"]."&auth_token=".$_SESSION["auth_token"]."&auth_secret=".$_SESSION["auth_secret"]."&query=".urlencode($query).((!empty($fields)) ? "&".$fields : "");
 
-	if (strtolower($method) == "post") {
+	return curl("/ws/app_clickedu_query.php", $fields, $method);
+
+	/*if (strtolower($method) == "post") {
 		curl_setopt($ch, CURLOPT_URL, $conf["apiurl"]."/ws/app_clickedu_query.php");
 		curl_setopt($ch, CURLOPT_POST, 1);
 		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
@@ -48,7 +82,7 @@ function ws_curl($query, $fields, $method) {
 
 	curl_close($ch);
 
-	return $server_output;
+	return $server_output;*/
 }
 
 function api_login($query) {
@@ -100,37 +134,6 @@ function is_ws_logged() {
 	} else {
 		return false;
 	}
-}
-
-function curl($relativeurl, $fields, $method="GET", $useragent="") {
-	global $conf;
-
-	$ch = curl_init();
-
-	if (strtolower($method) == "post") {
-		curl_setopt($ch, CURLOPT_URL, $conf["apiurl"].$relativeurl);
-		curl_setopt($ch, CURLOPT_POST, 1);
-		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields);
-	} else {
-		curl_setopt($ch, CURLOPT_URL, $conf["apiurl"].$relativeurl."?".$fields);
-	}
-
-	if (isset($_SESSON["cookie"])) {
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("Cookie: ".$_SESSION["cookie"]));
-	}
-
-	if (!empty($useragent)) {
-		curl_setopt($ch, CURLOPT_HTTPHEADER, array("User-Agent: ".$useragent));
-	}
-
-	// receive server response ...
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-	$server_output = curl_exec($ch);
-
-	curl_close($ch);
-
-	return $server_output;
 }
 
 function curlResponseHeaderCallback($ch, $headerLine) {

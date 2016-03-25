@@ -7,6 +7,7 @@ if (!isset($_POST["username"]) || !isset($_POST["password"])) {
 }
 
 unset($_SESSION["cookie"]);
+unset($_SESSION["id_usuari_2"]);
 
 $login = json_decode(api_login("action=doLogin&usr=".urlencode($_POST["username"])."&pwd=".urlencode($_POST["password"]), true), true);
 

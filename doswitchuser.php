@@ -22,12 +22,8 @@ $login3 = json_decode(curl("/ws/app_clickedu_permissions.php", "acceptar=1&es_we
 $login4 = json_decode(curl("/ws/app_clickedu_validated.php", "auth_secret=".urlencode($login["secret"])."&auth_token=".urlencode($login["token"])."&cons_key=".urlencode($conf["ios_cons_key"])."&id_usuari=".$id."&ind_pm=0", "POST", "ClickEdu/org.clickedu.Clickedu (21; OS Version 9.3 (Build 13E5233a))"), true);
 
 $login5 = json_decode(curl("/ws/app_clickedu_check_token.php", "id=00000000-0000-0000-0000-000000000000&installationId=00000000-0000-0000-0000-000000000000&nom=&platform=iOS&token=".urlencode($login["token"])."&secret=".urlencode($login["secret"])."&version=2", "GET", "ClickEdu/org.clickedu.Clickedu (21; OS Version 9.3 (Build 13E5233a))"), true);
-//$login5 = json_decode(curl("/ws/app_clickedu_check_token.php", "id=C0B6A413-EEA1-4890-81A1-0997B31D151&installationId=71c79517-d715-4f00-a2f7-bcd52c747f03&nom=&platform=iOS&token=".urlencode($login["token"])."&secret=".urlencode($login["secret"])."&version=2", "GET", "ClickEdu/org.clickedu.Clickedu (21; OS Version 9.3 (Build 13E5233a))"), true);
 
 $ws = ws_query("/init");
-
-print_r($ws);
-exit();
 
 $_SESSION["id_usuari_2"] = $id;
 
