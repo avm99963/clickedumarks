@@ -6,7 +6,7 @@ if (!issuperwhitelisted()) {
 	exit();
 }
 
-if (!isset($_POST["item_id"]) || !isset($_POST["id_cgap"]) || !isset($_POST["agrupacio"]) || !isset($_POST["nota"])) {
+if (!isset($_POST["item_id"]) || !isset($_POST["id_cgap"]) || !isset($_POST["agrupacio"]) || !isset($_POST["nota"]) || !isset($_POST["avaluacio"])) {
 	header("Location: materias.php");
 	exit();
 }
@@ -14,10 +14,9 @@ if (!isset($_POST["item_id"]) || !isset($_POST["id_cgap"]) || !isset($_POST["agr
 $id_cgap = (int)$_POST["id_cgap"];
 $id = (int)$_POST["item_id"];
 $agrupacio = (int)$_POST["agrupacio"];
+$avaluacio = (int)$_POST["avaluacio"]; // Esto es en realidad '''avaluacio'''!!!
 
 $json = ws_query("/teacher/items_materia", "id_cgap=".urlencode($id_cgap));
-
-$avaluacio = key($json["items"]); // Esto es en realidad '''avaluacio'''!!!
 
 if (isset($json["items"][$avaluacio][$agrupacio])) {
 	foreach ($json["items"][$avaluacio][$agrupacio] as $pos => $item) {

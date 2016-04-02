@@ -23,22 +23,25 @@ if (!array_key_exists($id_cgap, $conf["materias"])) {
 
 $json = ws_query("/teacher/items_materia", "id_cgap=".urlencode($id_cgap));
 
-$avaluacio = key($json["items"]);
-
 if (!isset($json["agrupacions"])) {
 	header("Location: materias.php");
 	exit();
 }
-if (isset($json["items"][$avaluacio][$agrupacio])) {
-	foreach ($json["items"][$avaluacio][$agrupacio] as $item) {
-		if ($item["id"] == $id) {
-			$theitem = $item;
-			break;
+
+foreach ($json["items"] as $thisavaluacio => $avaluacioitems) {
+	if (count($avaluacioitems) && isset($avaluacioitems[$agrupacio])) {
+		foreach ($avaluacioitems[$agrupacio] as $item) {
+			if ($item["id"] == $id) {
+				$avaluacio = $thisavaluacio;
+				$theitem = $item;
+				break;
+			}
 		}
 	}
 }
 
 if (!isset($theitem)) {
+	exit();
 	header("Location: materias.php");
 	exit();
 }

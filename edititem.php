@@ -23,18 +23,19 @@ if (!array_key_exists($id_cgap, $conf["materias"])) {
 
 $json = ws_query("/teacher/items_materia", "id_cgap=".urlencode($id_cgap));
 
-$avaluacio = key($json["items"]); // Esto es en realidad '''avaluacio'''!!!
-
 if (!isset($json["agrupacions"])) {
 	header("Location: materias.php");
 	exit();
 }
-if (isset($json["items"][$avaluacio][$agrupacio])) {
-	foreach ($json["items"][$avaluacio][$agrupacio] as $pos => $item) {
-		if ($item["id"] == $id) {
-			$theitem = $item;
-			$thepos = $pos;
-			break;
+
+foreach ($json["items"] as $thisavaluacio => $avaluacioitems) {
+	if (count($avaluacioitems) && isset($avaluacioitems[$agrupacio])) {
+		foreach ($avaluacioitems[$agrupacio] as $item) {
+			if ($item["id"] == $id) {
+				$avaluacio = $thisavaluacio;
+				$theitem = $item;
+				break;
+			}
 		}
 	}
 }
@@ -94,10 +95,7 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > <a href="materias.php">Mater
 						?>
 						</tbody>
 					</table>
-					<!--<input type="hidden" name="id_criteri_text_<?=$avaluacio?>_<?=$id?>" value="<?=$id?>">
-					<input type="hidden" name="id_avaluacio" value="<?=$avaluacio?>">
-					<input type="hidden" name="id_agrupacio" value="<?=$agrupacio?>">
-					<input type="hidden" name="pos_item" value="<?=$thepos?>">-->
+					<input type="hidden" name="avaluacio" value="<?=$avaluacio?>">
 					<input type="hidden" name="id_cgap" value="<?=$id_cgap?>">
 					<input type="hidden" name="item_id" value="<?=$id?>">
 					<input type="hidden" name="agrupacio" value="<?=$agrupacio?>">
