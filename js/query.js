@@ -1,5 +1,5 @@
 function init() {
-	selectize = $("#userid").selectize({
+	selectize = $("#query").selectize({
 		create: true
 	});
 }

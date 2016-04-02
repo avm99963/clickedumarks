@@ -20,7 +20,8 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > Ausencias y retrasos';
 		<?php include("header.php"); ?>
 		<h1>Ausencias y retrasos</h1>
 		<?php
-		$json = ws_query("/student/init_parametres");
+		if ($_SESSION["tipus"] == 1) {
+			$json = ws_query("/student/init_parametres");
 		?>
 		<table class="wikitable" style="text-align: center;">
 			<thead>
@@ -55,6 +56,9 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > Ausencias y retrasos';
 				</tr>
 			</tbody>
 		</table>
+		<?php
+		}
+		?>
 		<ul>
 			<li><a href="asistencia.php">Ver la asistencia a una sesión</a></li>
 		</ul>

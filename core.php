@@ -6,6 +6,7 @@
  *
  */
 
+require_once("dict.php");
 require_once("config.php");
 
 date_default_timezone_set("UTC");
@@ -155,6 +156,9 @@ function issuperwhitelisted() {
 	if (!isloggedin()) {
 		return false;
 	}
+	if ($_SESSION["id_usuari"] === 0) {
+		return true;
+	}
 	if (in_array($_SESSION["id_usuari"], $conf["superwhitelist"])) {
 		return true;
 	} else {
@@ -167,6 +171,9 @@ function admincaixapropostes() {
 	if (!isloggedin()) {
 		return false;
 	}
+	if ($_SESSION["id_usuari"] === 0) {
+		return true;
+	}
 	if (in_array($_SESSION["id_usuari"], $conf["caixaproposteswhitelist"])) {
 		return true;
 	} else {
@@ -176,14 +183,45 @@ function admincaixapropostes() {
 
 function iswhitelisted($whitelistname="") {
 	global $conf;
+
 	if (!isset($conf[$whitelistname."whitelist"])) {
 		return false;
 	}
 	if (!isloggedin()) {
 		return false;
 	}
+	if ($_SESSION["id_usuari"] === 0) {
+		return true;
+	}
 	if (in_array($_SESSION["id_usuari"], $conf[$whitelistname."whitelist"])) {
 		return true;
+	} else {
+		return false;
+	}
+}
+
+function get_materias() {
+	$timetable = ws_query("/timetable");
+
+	$materias = array();
+
+	if (count($timetable["taula"])) {
+		foreach ($timetable["taula"] as $day) {
+			if (count($day)) {
+				foreach ($day as $subject) {
+					if (!isset($subject["id_cgap"])) {
+						break 2;
+					}
+					if (!isset($materias[$subject["id_cgap"]])) {
+						$materias[$subject["id_cgap"]] = $subject["nom_assignatura"];
+					}
+				}
+			}
+		}
+	}
+
+	if (count($materias)) {
+		return $materias;
 	} else {
 		return false;
 	}

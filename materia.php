@@ -33,7 +33,7 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > <a href="materias.php">Mater
 		<?php include("header.php"); ?>
 		<h1><?=$materia?></h1>
 		<?php
-		$json = ws_query("/teacher/items_materia", "id_cgap=".urlencode($id_cgap));
+		$json = ws_query("/teacher/items_materia", "id_cgap=".urlencode($id_cgap)."&num_avaluacio=3");
 
 		if (isset($json["error"])) {
 			?>
@@ -42,35 +42,34 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > <a href="materias.php">Mater
 			exit();
 		}
 
-		$items_key = key($json["items"]);
+		foreach ($json["items"] as $items_key => $term) {
 		?>
-		<ul>
-			<li>Evaluación: <?=htmlspecialchars($json["items"][$items_key]["nom"])?> (<?=($json["items"][$items_key]["tancada"] ? "cerrada" : "abierta")?>)</li>
-		</ul>
-		<?php
-		if (!isset($json["agrupacions"])) {
-			?>
-			<p>No hay ningún elemento que mostrar para esta materia.</p>
+			<h3><?=htmlspecialchars($term["nom"])?> (<?=($term["tancada"] ? "cerrada" : "abierta")?>)</h3>
 			<?php
-		} else {
-			foreach ($json["agrupacions"] as $id => $agrupacio) {
+			if (!isset($json["agrupacions"])) {
 				?>
-				<h3><?=$agrupacio?></h3>
+				<p>No hay ningún elemento que mostrar para esta materia.</p>
 				<?php
-				if (!isset($json["items"][$items_key][$id])) {
-					echo "<p>No hay elementos en esta agrupación.</p>";
-				} else {
+			} else {
+				foreach ($json["agrupacions"] as $id => $agrupacio) {
 					?>
-					<ul>
+					<h4><?=$agrupacio?></h4>
 					<?php
-					foreach ($json["items"][$items_key][$id] as $item) {
+					if (!isset($term[$id])) {
+						echo "<p>No hay elementos en esta agrupación.</p>";
+					} else {
 						?>
-						<li><a href="item.php?id_cgap=<?=$id_cgap?>&item_id=<?=$item["id"]?>&agrupacio=<?=$id?>"><?=$item["nom"]?></a></li>
+						<ul>
+						<?php
+						foreach ($term[$id] as $item) {
+							?>
+							<li><a href="item.php?id_cgap=<?=$id_cgap?>&item_id=<?=$item["id"]?>&agrupacio=<?=$id?>"><?=$item["nom"]?></a></li>
+							<?php
+						}
+						?>
+						</ul>
 						<?php
 					}
-					?>
-					</ul>
-					<?php
 				}
 			}
 		}

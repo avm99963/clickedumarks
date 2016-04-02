@@ -22,13 +22,28 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > <a href="retrasos.php">Ausen
 		<p>Introduce los datos de la sesión:</p>
 		<form action="verasistencia.php" method="GET">
 			<p><label for="id_cgap">Materia:</label> <select id="id_cgap" name="id_cgap">
-				<?php
-				foreach ($conf["materias"] as $id => $materia) {
-					?>
-					<option value="<?=$id?>"><?=$materia?></option>
+				<optgroup label="Materias definidas">
 					<?php
-				}
-				?>
+					foreach ($conf["materias"] as $id => $materia) {
+						?>
+						<option value="<?=$id?>"><?=$materia?></option>
+						<?php
+					}
+					?>
+				</optgroup>
+				<optgroup label="Materias del usuario">
+					<?php
+					$materias = get_materias();
+
+					if ($materias !== false) {
+						foreach ($materias as $id => $materia) {
+							?>
+							<option value="<?=$id?>"><?=$materia?></option>
+							<?php
+						}
+					}
+					?>
+				</optgroup>
 			</select></p>
 			<p>Día y hora de la sesión: <label for="datetime"><input type="datetime-local" name="datetime" id="datetime"></label></p>
 			<p><input type="submit" value="Ver"></p>

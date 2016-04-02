@@ -13,6 +13,7 @@ $conf["whitelist"] = []; // Lista de usuarios que tienen permisos para ver más 
 $conf["superwhitelist"] = []; // Lista de usuarios que tienen permisos para editar (ids)
 $conf["caixaproposteswhitelist"] = []; // Lista de usuarios que tienen permisos para administrar caja de propuestas (ids)
 $conf["switchwhitelist"] = []; // Lista de usuarios que pueden elegir con qué usuario iniciar sesión (ids)
+$conf["searchwhitelist"] = []; // Lista de usuarios que pueden buscar usuarios (ids)
 $conf["materias"] = array(); // Lista de materias (llave es id_cgap, y valor es el nombre de la materia)
 
 // Constantes OAuth de ClickEdu. Son las mismas para todos los colegios, así que no hace falta cambiar su valor a menos que las desautoricen.

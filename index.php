@@ -37,5 +37,7 @@
 			<p><input type="checkbox" name="switchuser" id="switchuser" value="yes"><label for="switchuser">Iniciar sesión como otro usuario</label></p>
 			<p><input type="submit" value="Iniciar sesión"></p>
 		</form>
+		<hr>
+		<p><a href="tokenlogin.php">Acceder con token</a></p>
 	</body>
 </html>
