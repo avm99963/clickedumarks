@@ -6,7 +6,7 @@ if (!isloggedin()) {
 	exit();
 }
 
-$morenav = '<a href="home.php">ClickEdu Marks</a> > Query';
+$morenav = '<a href="home.php">ClickEdu Marks</a> > <a href="labs.php">Labs</a> > Query';
 ?>
 <!DOCTYPE html>
 <html>
@@ -43,7 +43,7 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > Query';
 		<?php
 		if (isset($_POST["query"])) {
 			if (isset($_POST["format"]) && $_POST["format"] == "json") {
-				$json = ws_curl($_POST["query"], $_POST["parameters"], $_POST["method"]);
+				$json = htmlspecialchars(ws_curl($_POST["query"], $_POST["parameters"], $_POST["method"]));
 			} else {
 				$json = ws_query($_POST["query"], $_POST["parameters"], $_POST["method"]);
 			}

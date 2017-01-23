@@ -60,7 +60,7 @@ $morenav = '<a href="home.php">ClickEdu Marks</a> > <a href="caixapropostes.php"
 			<p><a href="veurecaixapropostes.php?archived=1">Ver propuestas archivadas</a></p>
 			<?php
 		}
-		$query = mysqli_query($con, "SELECT * FROM propuestas WHERE archived = ".$archived);
+		$query = mysqli_query($con, "SELECT * FROM propuestas WHERE archived = ".$archived) or die(mysqli_error($con));
 		if (mysqli_num_rows($query)) {
 			?>
 			<div class="mdl-grid">

@@ -230,11 +230,11 @@ function get_materias() {
 //Signature: array array_column ( array $input , mixed $column_key [, mixed $index_key ] )
 if( !function_exists( 'array_column' ) ) {
     function array_column( array $input, $column_key, $index_key = null ) {
-    
+
         $result = array();
         foreach( $input as $k => $v )
             $result[ $index_key ? $v[ $index_key ] : $k ] = $v[ $column_key ];
-        
+
         return $result;
     }
 }

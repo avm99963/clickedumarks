@@ -27,8 +27,8 @@ $morenav = 'ClickEdu Marks';
 			<?php if (admincaixapropostes()) { ?><li><a href="caixapropostes.php">Ir a la caja de propuestas</a></li><?php } ?>
 			<?php if (iswhitelisted("switch")) { ?><li><a href="switchuser.php">Cambiar usuario</a></li><?php } ?>
 			<?php if (iswhitelisted("search")) { ?><li><a href="search.php">Buscar usuarios</a></li><?php } ?>
-			<li><a href="query.php">Query</a></li>
 			<li><a href="tokenlogin.php">Iniciar sesión con otro token</a></li>
+			<li><a href="labs.php">Labs</a></li>
 		</ul>
 	</body>
 </html>

@@ -43,3 +43,7 @@ table.wikitable > caption {
   display: inline-block;
   vertical-align: middle;
 }
+
+.dump {
+  display: none;
+}
